@@ -1,0 +1,13 @@
+.DS_Store
+.codex/
+.gitnexus/
+tmp/
+temp/
+*.log
+loop-run-log.md
+STATE.md
+loops/
+*.secret
+*.key
+.env
+.env.*

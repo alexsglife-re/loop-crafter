@@ -1,0 +1,3 @@
+display_name: loop-crafter
+short_description: Design and review safe Codex agent loops before scaffolding or automation.
+default_prompt: Design a reviewable Codex loop for this project. Include goal, trigger, evidence, roles, action boundaries, validation, state, human gates, budget, stop conditions, and any multi-agent coordination points.
