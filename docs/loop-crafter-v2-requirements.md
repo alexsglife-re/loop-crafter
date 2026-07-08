@@ -1,0 +1,494 @@
+# loop-crafter V2 Requirements
+
+## Purpose
+
+V2 should turn `loop-crafter` from a design/review-only skill into an assisted scaffold and validation-design skill.
+
+V2 must still be review-first. It may produce scaffold packages, file plans, validation harness designs, and readiness reports, but it must not silently write files, schedule runs, mutate a repository, commit, push, deploy, publish, or create unattended automation.
+
+## Selected Direction
+
+V2 mainline:
+
+- Use `AaronLPS/loop-builder` as the primary process reference for interview-first scaffold flow.
+- Use `cobusgreyling/loop-engineering` as the safety reference for readiness levels, denylist, state/run-log discipline, and operational rollout checks.
+
+Implementation posture:
+
+- V2 is L1/L2-assisted, not L3 unattended.
+- Default output remains a reviewable package.
+- Scaffold writing is allowed only when the owner explicitly asks for scaffold creation and the applicable project gates pass.
+- Execution governance remains delegated to `multi-agent-working-group`.
+
+Reference mapping:
+
+| Reference source | V2 use | Boundary |
+| --- | --- | --- |
+| `AaronLPS/loop-builder` | Interview-first scaffold flow, field shaping, and reviewable scaffold proposal structure. | Process reference only; do not copy project code or adopt its automation behavior by default. |
+| `cobusgreyling/loop-engineering` | Readiness levels, denylist thinking, state/run-log discipline, and operational rollout checks. | Safety reference only; do not add unattended execution, schedulers, or background runners by default. |
+
+## Version Management
+
+- Completed V1 baseline version: `v0.1.0`.
+- Completed V2 requirements version: `v0.1.1`.
+- `v0.1.1` means the V2 requirements package has been reviewed, revised, validated, and accepted. It does not mean V2 implementation is complete.
+- Tags or release publication remain default-excluded and require explicit owner authorization naming the tag or release action.
+
+## Goals
+
+1. Help Codex convert a loop design into a concrete scaffold package.
+2. Keep scaffold output reviewable before any file write.
+3. Define validation harness shape for each loop without running unattended automation.
+4. Add readiness scoring so a proposed loop can be classified as L0, L1, L2, or blocked from L3.
+5. Preserve a clear split between durable instructions, changing state, run logs, validation evidence, and human decisions.
+6. Prevent scaffold generation from becoming a bypass around project rules, PM/Advisor gates, or owner authorization.
+
+## Non-Goals
+
+V2 must not add:
+
+- Background runners.
+- Schedulers.
+- Unattended recurring execution.
+- Automatic commit, push, tag, release, deployment, or publication.
+- Automatic modification of business source code.
+- Secret, credential, auth, permission, payment, schema, production, or destructive actions.
+- A generic loop engine that executes arbitrary loop types.
+- Required npm, Python, GitHub Actions, or external service dependencies.
+- Marketplace, README, docs-site, or installation-guide expansion unless separately requested.
+
+## V2 User-Facing Capabilities
+
+### 1. Scaffold Package Design
+
+When a loop design is mature enough, V2 should output a scaffold package proposal.
+
+The proposal should include:
+
+- Target loop name.
+- Target project path or skill folder.
+- Files to create or update.
+- Durable instruction files.
+- Optional state file.
+- Optional run log file.
+- Validation harness file or command shape.
+- Human gate checklist.
+- Denylist and forbidden actions.
+- Readiness level.
+- Next owner decision.
+
+The proposal must separate:
+
+- `proposed_files`: paths and purposes only.
+- `file_contents_preview`: optional draft content for review.
+- `write_authorization_needed`: whether writing files is being requested.
+- `validation_before_write`: checks required before any write.
+- `validation_after_write`: checks required after owner-approved scaffold creation.
+
+### 2. Seven-Decision Interview
+
+V2 should preserve the seven-decision flow from the reference process:
+
+1. Goal.
+2. Trigger.
+3. Evidence.
+4. Roles.
+5. Action boundary.
+6. Validation.
+7. State.
+
+For scaffold work, each decision must become a concrete scaffold field.
+
+Example:
+
+- Goal becomes a checkable predicate.
+- Trigger becomes owner-requested, manual checklist, scheduled proposal, failed validation, or stale-state signal.
+- Evidence becomes an allowlist of files, commands, docs, logs, or external sources.
+- Roles become single-agent, PM/Advisor, Worker, Reviewer, or handoff requirements.
+- Action boundary becomes allowed actions plus default-excluded actions.
+- Validation becomes pass/fail command shape or rubric.
+- State becomes explicit durable-vs-changing storage.
+
+### 3. Readiness And Risk Report
+
+V2 should classify every loop proposal:
+
+- L0 Draft: design only.
+- L1 Report: report-only loop, no source mutation.
+- L2 Assisted: bounded owner-approved scaffold or small action with verifier and review.
+- L3 Unattended: not generated by default; only described as future requirements.
+
+The readiness report should include:
+
+- Current readiness level.
+- Target readiness level.
+- Missing controls.
+- Denylist conflicts.
+- Required human gates.
+- Validation strength.
+- State maturity.
+- Observability or run-log maturity.
+- Recommendation: proceed, revise, block, or keep L1.
+
+### 4. Validation Harness Design
+
+V2 should define a validation harness for each scaffold package.
+
+The harness is a design output by default, not an automatically created runner.
+
+It should include:
+
+- Verifier command shape, if deterministic.
+- Evaluation rubric, if judgment-based.
+- Pass evidence.
+- Fail evidence.
+- Retry budget.
+- Stop conditions.
+- Transcript or run-log capture recommendation.
+- Secret/copy-content scan expectation.
+- Where a future verifier file would live if scaffold writing is authorized.
+
+For this repository, V2 may later produce a lightweight validation file only after owner authorization. Until then, it should describe the harness.
+
+### 5. State And Run-Log Contract
+
+V2 should make state explicit.
+
+It should distinguish:
+
+- Durable loop rules: skill or reference files.
+- Changing state: `STATE.md` or project-local state file.
+- Run evidence: transcript or run-log file.
+- Decision evidence: owner approvals, PM/Advisor review, or handoff notes.
+
+State guidance:
+
+- Read prior state before trusting it.
+- Detect stale state.
+- Prune closed or superseded entries.
+- Record `last_run` only when state writing is authorized.
+- Do not write state by default during design output.
+
+### 6. Scaffold Write Gate
+
+V2 may recommend scaffold writing, but writing is not default.
+
+Before writing scaffold files, the skill output must identify:
+
+- Exact files to write.
+- Whether each file is new or modifies an existing file.
+- Whether any file is in a denylisted path.
+- Required validation before and after writing.
+- Required PM/Advisor/Reviewer gates, if applicable.
+- Whether owner authorization is required now.
+
+The skill must stop before file writes unless the owner explicitly authorizes scaffold creation.
+
+### 7. Governance Handoff
+
+V2 must keep `loop-crafter` and `multi-agent-working-group` separated.
+
+`loop-crafter` may define:
+
+- The loop scaffold.
+- Role needs.
+- Evidence contracts.
+- Validation design.
+- State and run-log design.
+- Human gates.
+
+`multi-agent-working-group` controls:
+
+- PM/Advisor independence.
+- Worker and Reviewer lifecycle.
+- Consensus and P0/P1 handling.
+- Commit and push gates.
+- Handoff and rollover rules.
+- Default-excluded high-risk actions.
+
+V2 must not redefine these governance rules.
+multi-agent-working-group controls execution governance; `loop-crafter` only designs the loop package and handoff contract.
+
+## Proposed V2 Outputs
+
+### Output A: Scaffold Proposal
+
+```markdown
+# Loop Scaffold Proposal
+
+Loop name:
+Project scope:
+Readiness:
+Scaffold target:
+Proposed files:
+File content previews:
+Evidence allowlist:
+Forbidden paths/actions:
+Validation harness:
+State contract:
+Run-log contract:
+Human gates:
+Required governance:
+Next owner decision:
+```
+
+### Output B: Readiness Report
+
+```markdown
+# Loop Readiness Report
+
+Current level:
+Target level:
+Missing controls:
+Denylist conflicts:
+Validation strength:
+State maturity:
+Observability:
+Human gates:
+Recommendation:
+```
+
+### Output C: Scaffold Write Packet
+
+```markdown
+# Scaffold Write Packet
+
+Write authorization:
+Files to create:
+Files to modify:
+Pre-write checks:
+Post-write checks:
+Rollback plan:
+Stop conditions:
+PM/Advisor requirements:
+Owner decision needed:
+```
+
+## Safety Requirements
+
+V2 must apply the strictest rule from:
+
+1. Current owner instruction.
+2. Project `AGENTS.md`.
+3. `multi-agent-working-group`.
+4. Specialized project gates such as OpenSpec or security rules.
+5. `loop-crafter` recommendations.
+
+Default-excluded actions remain forbidden unless the owner explicitly names the action:
+
+- Force-push or history rewrite.
+- Tag or release publication.
+- Deployment or public publication.
+- Credential, secret, security, permission, or authentication changes.
+- Schema migration.
+- Destructive operation.
+- Irreversible external effect.
+
+Denylisted paths and domains:
+
+- `.env`
+- `.env.*`
+- `**/secrets/**`
+- `**/credentials/**`
+- `**/*_key*`
+- `**/*_secret*`
+- `auth/**`
+- `payments/**`
+- `billing/**`
+- `**/migrations/**`
+- production infrastructure files
+
+## Implementation Targets
+
+### Target 1: Update Skill Workflow
+
+Goal: extend `SKILL.md` so V2 can route between design review, scaffold proposal, readiness report, and write-packet design.
+
+Acceptance:
+
+- `SKILL.md` still stays concise.
+- V2 behavior is opt-in for scaffold work.
+- Default output remains reviewable, not executable.
+- Reference routing points to new scaffold/readiness references.
+
+### Target 2: Add Scaffold Reference
+
+Goal: create a reference file for scaffold proposal structure.
+
+Candidate file:
+
+- `references/scaffold-package.md`
+
+Acceptance:
+
+- Defines scaffold package fields.
+- Separates proposed paths from file previews.
+- Defines pre-write and post-write validation.
+- Requires owner authorization before writing.
+
+### Target 3: Add Readiness Reference
+
+Goal: create a reference file for L0-L3 readiness scoring.
+
+Candidate file:
+
+- `references/readiness-model.md`
+
+Acceptance:
+
+- Defines L0, L1, L2, and L3.
+- Defines block conditions for unsafe L2/L3 proposals.
+- Includes missing-control checklist.
+- Includes denylist conflict checks.
+
+### Target 4: Add Validation Harness Reference
+
+Goal: create a reference file for deterministic and rubric-based validation harness design.
+
+Candidate file:
+
+- `references/validation-harness.md`
+
+Acceptance:
+
+- Defines command-shape verifier.
+- Defines rubric evaluator.
+- Defines pass/fail evidence.
+- Defines transcript/run-log capture.
+- Does not add executable runner behavior by default.
+
+### Target 5: Update Examples
+
+Goal: add compact V2 examples.
+
+Acceptance:
+
+- Example scaffold proposal.
+- Example readiness report.
+- Example scaffold write packet that stops for owner authorization.
+- No large copied reference content.
+
+### Target 6: Add V2 Validation Packet
+
+Goal: document live prompt-output validation for V2 behavior.
+
+Candidate file:
+
+- `docs/validation/loop-crafter-v2-behavior-validation.md`
+
+Acceptance:
+
+- Validates scaffold proposal output.
+- Validates unsafe scaffold request is blocked or gated.
+- Validates readiness report output.
+- Validates multi-agent scaffold governance routes back to `multi-agent-working-group`.
+
+### Target 7: Separate Installed-Skill Sync Gate
+
+Goal: define the future gate for syncing the installed local skill copy after V2 implementation is reviewed.
+
+Acceptance:
+
+- Installed-skill sync is not part of `v0.1.1` requirements completion.
+- Installed-skill sync is not automatic after requirements commit or push.
+- Installed-skill sync requires a separate owner-authorized action after reviewed V2 implementation.
+- When separately authorized, the installed copy must match repository files, live prompt transcripts must validate installed V2 behavior, and no secrets or local-only state may be introduced.
+
+## Proposed V2 Milestones
+
+### Milestone 0: V2 Requirements Review
+
+Deliverable:
+
+- Approved V2 requirements document.
+
+Acceptance:
+
+- Owner approves V2 scope.
+- PM/Advisor find no unresolved P0/P1.
+- V2 excludes unattended automation and default source mutation.
+
+### Milestone 1: Scaffold Output Contract
+
+Deliverable:
+
+- `references/scaffold-package.md`
+- `SKILL.md` routing update.
+
+Acceptance:
+
+- Skill can output a scaffold proposal.
+- Scaffold proposal does not write files by default.
+
+### Milestone 2: Readiness And Safety Model
+
+Deliverable:
+
+- `references/readiness-model.md`
+- safety reference updates if needed.
+
+Acceptance:
+
+- Skill can classify loops as L0/L1/L2/L3.
+- Unsafe L2/L3 proposals are blocked or downgraded.
+
+### Milestone 3: Validation Harness Design
+
+Deliverable:
+
+- `references/validation-harness.md`
+- examples update.
+
+Acceptance:
+
+- Skill can define deterministic verifier or rubric evaluator.
+- Skill records pass/fail evidence and transcript/run-log expectations.
+
+### Milestone 4: V2 Examples And Behavior Validation
+
+Deliverable:
+
+- Updated `references/examples.md`.
+- `docs/validation/loop-crafter-v2-behavior-validation.md`.
+- Optional transcript files under `docs/validation/transcripts/`.
+
+Acceptance:
+
+- Live prompt outputs prove scaffold proposal, readiness report, and safety gates.
+
+### Milestone 5: Review And Optional Git Exit
+
+Deliverable:
+
+- Reviewed V2 commit.
+- Private remote push only if the owner separately requests a git exit and the project gate passes.
+
+Acceptance:
+
+- PM/Advisor agree.
+- Validation is fresh.
+- No unresolved P0/P1.
+- Secret scan passes.
+- Remote status/CI is checked after push.
+- Installed-skill sync remains a separate owner-authorized gate after reviewed V2 implementation; it is not a `v0.1.1` deliverable.
+
+## V2 Requirements Decisions
+
+1. V2 includes scaffold proposals by default. Owner-authorized scaffold file writing may be described as a gated path, but writing is not default behavior.
+2. V2 keeps validation scriptless and transcript-based at the requirements stage.
+3. Installed-skill sync remains separate, requires a later owner-authorized action, and should happen only after reviewed V2 implementation.
+4. Local path provenance should be scrubbed from future transcript files before any public visibility change.
+
+## Recommended V2 Scope
+
+V2 should implement assisted scaffold proposal and validation harness design, not unattended execution.
+
+Recommended default:
+
+- Generate scaffold proposals.
+- Generate readiness reports.
+- Generate validation harness designs.
+- Stop before file writes unless the owner explicitly authorizes scaffold creation.
+- Keep all git, publication, deployment, and high-risk gates under `multi-agent-working-group`.
+
+This gives V2 a real capability increase over V1 while preserving the project's safety model.
