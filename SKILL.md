@@ -7,11 +7,13 @@ description: Use when designing, reviewing, or adapting project-specific Codex a
 
 Use this skill to design or review a Codex agent loop. A loop design must be reviewable before it becomes a scaffold, automation, scheduled run, or repository mutation.
 
+V2 adds assisted scaffold proposals, readiness reports, and validation harness designs. These are review outputs by default, not permission to write files or run unattended automation.
+
 ## Purpose
 
 `loop-crafter` turns a recurring workflow into a loop design package with a clear goal, trigger, evidence, roles, action boundaries, validation, state, human gates, budget, and stop conditions.
 
-V1 is design/review-first. Do not run unattended automation by default.
+V2 remains design/review-first. Do not run unattended automation by default.
 
 ## When To Use
 
@@ -20,6 +22,8 @@ Use this skill when the user asks to:
 - Design a project-specific agent loop.
 - Review an existing loop for missing gates, weak validation, unsafe scope, state drift, or cost/context risk.
 - Turn a recurring workflow into a Codex skill or loop design.
+- Turn a mature loop design into a reviewable scaffold proposal.
+- Produce a readiness report or validation harness design for a proposed loop.
 - Plan a multi-agent loop that involves PM, Advisor, Worker, or Reviewer roles.
 
 ## When Not To Use
@@ -55,6 +59,14 @@ Ask or infer these seven decisions:
 
 Then define budget, stop conditions, human gates, and recovery.
 
+For scaffold or readiness work, convert the seven decisions into concrete output fields:
+
+- Scaffold proposal: proposed files, file content previews, validation before write, validation after write, write authorization needed, and next owner decision.
+- Readiness report: current level, target level, missing controls, denylist conflicts, validation strength, state maturity, observability, human gates, and recommendation.
+- Validation harness design: verifier command shape or rubric, pass evidence, fail evidence, retry budget, stop conditions, transcript/run-log capture, and secret/copy-content scan expectation.
+
+Stop before writing scaffold files unless the owner explicitly authorizes scaffold creation and all applicable project gates pass.
+
 ## Output Contract
 
 Return a loop design package with:
@@ -75,11 +87,23 @@ Return a loop design package with:
 - Failure recovery
 - Next owner decision
 
+When the user asks for V2 scaffold assistance, return one or more of:
+
+- Loop Scaffold Proposal
+- Loop Readiness Report
+- Scaffold Write Packet
+- Validation Harness Design
+
+Each output must be reviewable and must identify whether owner authorization is needed before any write.
+
 ## Reference Routing
 
 - Read `references/loop-design-checklist.md` for detailed design questions.
 - Read `references/pattern-catalog.md` for pattern matching.
 - Read `references/safety-and-gates.md` before proposing automation, git exits, external effects, or long-running loops.
+- Read `references/scaffold-package.md` before producing a scaffold proposal or write packet.
+- Read `references/readiness-model.md` before assigning L0/L1/L2/L3 readiness.
+- Read `references/validation-harness.md` before designing deterministic or rubric-based validation.
 - Read `references/examples.md` only when examples would clarify the output shape.
 
 ## Coordination With multi-agent-working-group
