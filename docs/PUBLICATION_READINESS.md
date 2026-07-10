@@ -23,7 +23,7 @@ Source: read-only `gh repo view` and local git checks on 2026-07-10.
 - Visibility at latest check: public
 - Repository description: `Review-first Codex skill for designing safe, gated agent loops before they become scaffolds or automation.`
 - Homepage URL: empty
-- Topics: `agent-workflows`, `ai-agents`, `automation-safety`, `codex`, `codex-skill`, `developer-tools`, `workflow-governance`
+- Topics: `agent-workflows`, `ai-agents`, `automation-safety`, `codex-skill`, `developer-tools`, `workflow-governance`, `agent-loops`, `loop-design`
 - License metadata: MIT
 - CI workflow: none present
 

@@ -1,6 +1,6 @@
 # Metadata Draft
 
-Status: applied for the initial GitHub description and topics on 2026-07-10. Further GitHub metadata edits still require owner authorization.
+Status: applied for the initial GitHub description and topics on 2026-07-10. Topics were refined on 2026-07-10 to include loop-specific discovery terms. Further GitHub metadata edits still require owner authorization.
 
 ## GitHub Description
 
@@ -12,7 +12,8 @@ Review-first Codex skill for designing safe, gated agent loops before they becom
 
 Draft topics:
 
-- codex
+- agent-loops
+- loop-design
 - codex-skill
 - agent-workflows
 - ai-agents
