@@ -38,8 +38,6 @@ git clone https://github.com/alexsglife-re/loop-crafter.git
 cd loop-crafter
 ```
 
-The clone command works for users who have repository access now, and for everyone after the owner separately authorizes making the repository public.
-
 To install it into a local Codex skills directory, copy the repository contents into a skill folder named `loop-crafter`.
 
 ```bash

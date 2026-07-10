@@ -2,9 +2,9 @@
 
 ## Status
 
-Current readiness: private repository preparation.
+Current readiness: public repository baseline prepared.
 
-This document records the first open-source readiness pass for `loop-crafter`. It does not authorize repository visibility changes, GitHub metadata edits, tags, releases, external posts, scheduling, deployment, or any other public action.
+This document records the first open-source readiness pass for `loop-crafter`. Repository visibility and the initial GitHub description/topics have now been applied by owner-authorized actions. It does not authorize tags, releases, external posts, scheduling, deployment, or any other public action.
 
 ## Project Classification
 
@@ -20,11 +20,11 @@ Source: read-only `gh repo view` and local git checks on 2026-07-10.
 
 - Repository: `alexsglife-re/loop-crafter`
 - Default branch: `master`
-- Visibility at readiness check: private
-- Repository description: empty
+- Visibility at latest check: public
+- Repository description: `Review-first Codex skill for designing safe, gated agent loops before they become scaffolds or automation.`
 - Homepage URL: empty
-- Topics: none reported
-- License metadata: none reported before adding `LICENSE`
+- Topics: `agent-workflows`, `ai-agents`, `automation-safety`, `codex`, `codex-skill`, `developer-tools`, `workflow-governance`
+- License metadata: MIT
 - CI workflow: none present
 
 ## Owner Decisions
@@ -42,14 +42,14 @@ Confirmed decisions for Phase 1:
 - Added MIT license text.
 - Added lightweight contribution guidance.
 - Added security and sensitive-content guidance.
-- Added draft-only GitHub metadata recommendations.
+- Applied owner-authorized GitHub description and topics from the metadata draft.
 - Added draft-only channel copy for later owner review.
 - Replaced concrete local machine paths in existing validation and transcript evidence with placeholders such as `<repo-root>` and `<codex-home>`.
 
-## Must Fix Before Public Visibility
+## Remaining Gates Before Promotion
 
-- Owner must separately authorize changing repository visibility to public.
-- Owner must separately authorize GitHub metadata edits.
+- Repository visibility is now public by owner action.
+- Initial GitHub description and topics have been applied by owner-authorized action.
 - Owner must separately authorize any external post or schedule.
 - PM and Advisor must review the final public-facing diff.
 - Fresh validation must pass.
@@ -77,15 +77,15 @@ Public copy should not claim:
 
 Allowed in this phase:
 
-- private repository documentation edits
+- public repository documentation edits
 - local draft metadata files
 - local draft promotion files
 - normal commit and push after PM/Advisor gate and validation
 
 Not authorized in this phase:
 
-- repository visibility change
-- GitHub metadata edit
+- additional repository visibility changes
+- additional GitHub metadata edits
 - tag or release creation
 - external posting or scheduling
 - deployment

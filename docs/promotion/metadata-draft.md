@@ -1,6 +1,6 @@
 # Metadata Draft
 
-Status: draft only. This file requires owner authorization before any GitHub metadata edit.
+Status: applied for the initial GitHub description and topics on 2026-07-10. Further GitHub metadata edits still require owner authorization.
 
 ## GitHub Description
 
@@ -30,4 +30,4 @@ Draft recommendation: defer until README and public positioning are stable.
 
 ## Authorization Needed
 
-Changing repository description, topics, homepage, social preview, repository visibility, or any other GitHub metadata requires owner authorization naming the exact GitHub metadata action.
+Changing repository description, topics, homepage, social preview, repository visibility, or any other GitHub metadata again requires owner authorization naming the exact GitHub metadata action.
