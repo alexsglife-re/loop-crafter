@@ -32,7 +32,7 @@ Source: read-only `gh repo view` and local git checks on 2026-07-10.
 Confirmed decisions for Phase 1:
 
 - License: MIT.
-- Public positioning baseline: `loop-crafter is a review-first Codex skill for designing safe, gated agent loops before they become scaffolds, automation, or repository changes.`
+- Public positioning baseline: `loop-crafter designs unattended-ready agent loops with evidence, gates, state, and validated exits.`
 - Public documentation scope: scrub or summarize local-path validation transcripts before public visibility.
 - Normal commit/push: allowed after PM/Advisor agreement, fresh validation, and project git gates.
 
@@ -58,14 +58,14 @@ Confirmed decisions for Phase 1:
 
 - Add a CI or local validation script when the project has stable checks.
 - Add a changelog or release note before creating any tag or GitHub Release.
-- Consider a simple social preview image after the README stabilizes.
+- Social preview image now exists at `assets/social-preview.png`; consider setting it in GitHub only after separate owner authorization for that metadata action.
 - Validate the install path with a fresh local copy after publication decisions are final.
 
 ## Claim Safety
 
 Public copy should not claim:
 
-- unattended execution
+- ungated unattended execution
 - production support
 - package-registry availability
 - CI coverage

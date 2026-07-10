@@ -1,31 +1,53 @@
-# loop-crafter
+<h1 align="center">loop-crafter</h1>
 
-`loop-crafter` is a review-first Codex skill for designing safe, gated agent loops before they become scaffolds, automation, or repository changes.
+<p align="center">
+  <img src="assets/social-preview.png" alt="loop-crafter - unattended-ready loops for evidence-led agent work" width="100%">
+</p>
 
-It is for developers and maintainers who use Codex on recurring workflows and want the loop's goal, evidence, roles, validation, state, human gates, and stop conditions written down before work starts.
+<p align="center">
+  <strong>Design unattended-ready agent loops with evidence, gates, state, and validated exits.</strong>
+</p>
 
-## What It Solves
+<p align="center">
+  <a href="#quickstart"><img src="https://img.shields.io/badge/Quickstart-local_skill-blue?style=for-the-badge" alt="Quickstart"></a>
+  <a href="docs/loop-crafter-v2-requirements.md"><img src="https://img.shields.io/badge/V2_reqs-v0.1.1-green?style=for-the-badge" alt="V2 requirements"></a>
+  <a href="docs/PUBLICATION_READINESS.md"><img src="https://img.shields.io/badge/Readiness-public_baseline-black?style=for-the-badge" alt="Publication readiness"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License"></a>
+</p>
 
-Long-running agent work often drifts when the workflow is not explicit. A loop can start as "keep going until done" and slowly blur scope, validation, approval, or publication boundaries.
+AI agents can keep working for a long time, but unattended work only stays useful when the loop is explicit: what success means, which evidence is allowed, what state changes, how validation works, and when the agent must stop or escalate.
 
-`loop-crafter` helps turn that recurring workflow into a reviewable package:
+`loop-crafter` is a Codex skill for turning recurring agent workflows into loop packages. The goal is not to prevent unattended execution. The goal is to make owner-authorized autonomous runs more controlled, accurate, and verifiable before they become scaffolds, automation, or repository changes.
 
-- what the loop is trying to finish
-- what evidence the agent may inspect
-- which roles are involved
-- what actions are allowed or forbidden
-- how success and failure are validated
-- where state and run evidence should live
-- when a human decision or PM/Advisor gate is required
+Use it when you want an agent to move efficiently through repeatable work without losing the practical controls that make the result trustworthy: evidence, state, validation, budgets, human gates, and safe exits.
+
+| Without a loop package | With `loop-crafter` |
+| --- | --- |
+| "Keep going until done" depends on chat memory and assumptions. | The loop defines goal, trigger, evidence, roles, validation, state, and stop conditions. |
+| Unattended work can drift across scope, files, or external effects. | Boundaries and budgets are explicit before the run starts. |
+| Success is judged after the fact. | Validation and exit criteria are designed into the loop. |
+| Review happens only when someone notices risk. | Human gates and PM/Advisor checkpoints are part of the package. |
+
+## What It Designs
+
+`loop-crafter` helps define:
+
+- the outcome the loop must reach;
+- the evidence the agent may inspect;
+- the roles involved in the work;
+- the state and run-log expectations;
+- the validation harness or review rubric;
+- the budget, retry, stop, and recovery rules;
+- the human gates before writes, git exits, publication, or other external effects.
 
 ## Maturity
 
-Current status: early open-source preparation.
+Current status: early public baseline.
 
 - V1 is design/review-first.
 - V2 requirements are documented as `v0.1.1`.
 - V2 adds scaffold proposals, readiness reports, and validation harness designs.
-- V2 remains review-first and does not make scaffold writing the default.
+- V2 is aimed at unattended-ready loop design, while execution, file writes, and external effects remain gated by owner/project rules.
 
 There is no published release, tag, package registry entry, or CI workflow yet.
 
@@ -50,9 +72,10 @@ Then ask Codex to use `loop-crafter` when designing or reviewing a recurring wor
 Example prompt:
 
 ```text
-Use loop-crafter to design a review-first loop for preparing a release note.
-The loop may read git history and validation docs, but it must not tag,
-publish, deploy, or push without owner approval.
+Use loop-crafter to design an unattended-ready loop for preparing a release note.
+The loop may read git history and validation docs. It should define evidence,
+state, validation, budget, stop conditions, and owner gates before any tag,
+release, deployment, or publication.
 ```
 
 ## Typical Outputs
@@ -65,20 +88,17 @@ publish, deploy, or push without owner approval.
 - validation harness designs
 - scaffold write packets that stop for owner authorization
 
-These outputs are meant to be reviewed before any file write, commit, push, deployment, release, or publication.
+These outputs are meant to make repeated or owner-authorized autonomous work easier to run, review, and verify.
 
-## What It Does Not Do
+## Boundaries
 
-`loop-crafter` is not an unattended runner.
+`loop-crafter` designs the loop package. It does not, by itself:
 
-It does not:
-
-- schedule background work
-- run recurring jobs by itself
-- mutate source files by default
-- commit, push, tag, release, deploy, or publish by default
-- read secrets or credentials
-- replace project governance or PM/Advisor review
+- execute unattended runs;
+- grant permission to write files, commit, push, tag, release, deploy, or publish;
+- read secrets, credentials, Keychain data, browser data, or unrelated projects;
+- replace project governance, owner decisions, tests, CI, or PM/Advisor review;
+- make an unsafe loop safe just by naming it a loop.
 
 When a loop needs multi-agent governance, `loop-crafter` designs the loop package and `multi-agent-working-group` controls execution governance.
 
