@@ -12,7 +12,7 @@ This document records the first open-source readiness pass for `loop-crafter`. R
 - Maturity: early documented project.
 - Primary audience: developers and maintainers using Codex for recurring or long-running workflows.
 - Adoption path: clone the repository and copy the skill files into a local Codex skills directory.
-- Current version story: V2 requirements are documented as `v0.1.1`; no public release or tag has been created.
+- Current version story: `v0.1.1` is the first public baseline and V2 requirements/readiness release.
 
 ## Verified Baseline
 
@@ -50,6 +50,7 @@ Confirmed decisions for Phase 1:
 
 - Repository visibility is now public by owner action.
 - Initial GitHub description and topics have been applied by owner-authorized action.
+- `v0.1.1` tag and GitHub Release are owner-authorized for this release gate.
 - Owner must separately authorize any external post or schedule.
 - PM and Advisor must review the final public-facing diff.
 - Fresh validation must pass.
@@ -57,7 +58,7 @@ Confirmed decisions for Phase 1:
 ## Should Improve Before Broader Promotion
 
 - Add a CI or local validation script when the project has stable checks.
-- Add a changelog or release note before creating any tag or GitHub Release.
+- Add more release examples and validation notes after the first public release.
 - Social preview image now exists at `assets/social-preview.png`; consider setting it in GitHub only after separate owner authorization for that metadata action.
 - Validate the install path with a fresh local copy after publication decisions are final.
 
@@ -70,7 +71,7 @@ Public copy should not claim:
 - package-registry availability
 - CI coverage
 - broad runtime adapter support
-- public release availability
+- release availability beyond the owner-authorized `v0.1.1` public baseline release
 - external adoption, stars, benchmarks, or endorsements
 
 ## Authorization State
@@ -86,7 +87,7 @@ Not authorized in this phase:
 
 - additional repository visibility changes
 - additional GitHub metadata edits
-- tag or release creation
+- tag or release creation beyond the owner-authorized `v0.1.1` release gate
 - external posting or scheduling
 - deployment
 - destructive changes

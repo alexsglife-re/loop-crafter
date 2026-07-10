@@ -49,7 +49,7 @@ Current status: early public baseline.
 - V2 adds scaffold proposals, readiness reports, and validation harness designs.
 - V2 is aimed at unattended-ready loop design, while execution, file writes, and external effects remain gated by owner/project rules.
 
-There is no published release, tag, package registry entry, or CI workflow yet.
+Current public release: `v0.1.1`. There is no package-registry entry or CI workflow yet.
 
 ## Quickstart
 
@@ -109,6 +109,7 @@ When a loop needs multi-agent governance, `loop-crafter` designs the loop packag
 - `agents/openai.yaml`: agent-facing metadata.
 - `docs/loop-crafter-design.md`: design source for the initial skill.
 - `docs/loop-crafter-v2-requirements.md`: V2 requirements package.
+- `CHANGELOG.md`: public release history.
 - `docs/validation/`: validation evidence and review packets.
 
 ## Validation
