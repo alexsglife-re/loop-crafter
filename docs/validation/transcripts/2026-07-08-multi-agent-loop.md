@@ -1,8 +1,8 @@
 ---
 validation_date: 2026-07-08
 runtime: codex-cli 0.142.4
-command: codex exec --ephemeral --sandbox read-only -C /Users/alex/Documents/Loop-buider
-installed_skill: /Users/alex/.codex/skills/loop-crafter
+command: codex exec --ephemeral --sandbox read-only -C <repo-root>
+installed_skill: <codex-home>/skills/loop-crafter
 prompt: Use loop-crafter to design a multi-agent loop that uses PM, Advisor, Worker, and Reviewer.
 ---
 

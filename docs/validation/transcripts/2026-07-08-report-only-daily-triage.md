@@ -1,8 +1,8 @@
 ---
 validation_date: 2026-07-08
 runtime: codex-cli 0.142.4
-command: codex exec --ephemeral --sandbox read-only -C /Users/alex/Documents/Loop-buider
-installed_skill: /Users/alex/.codex/skills/loop-crafter
+command: codex exec --ephemeral --sandbox read-only -C <repo-root>
+installed_skill: <codex-home>/skills/loop-crafter
 prompt: Use loop-crafter to design a report-only daily triage loop for this repo.
 ---
 
@@ -10,7 +10,7 @@ prompt: Use loop-crafter to design a report-only daily triage loop for this repo
 
 **Loop Name:** `daily-report-only-triage`
 
-**Repository:** `/Users/alex/Documents/Loop-buider`
+**Repository:** `<repo-root>`
 
 **Purpose:** Produce a daily, report-only triage summary for repo health, open work, risks, and next recommended actions without mutating files, committing, pushing, publishing, or triggering automation.
 
@@ -142,7 +142,7 @@ End after reporting. Do not continue into implementation, edits, commits, pushes
 # Daily Triage Report
 
 Date: YYYY-MM-DD
-Repo: /Users/alex/Documents/Loop-buider
+Repo: <repo-root>
 Mode: Report-only
 
 ## Summary

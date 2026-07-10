@@ -49,7 +49,7 @@ Do not create or modify V2 implementation files in this loop:
 - `references/readiness-model.md`
 - `references/validation-harness.md`
 - `references/examples.md`
-- installed skill files under `/Users/alex/.codex/skills/loop-crafter/`
+- installed skill files under `<codex-home>/skills/loop-crafter/`
 
 ## Global Gate Rules
 
@@ -313,7 +313,7 @@ awk '
 ' docs/loop-crafter-v2-requirements.md docs/validation/loop-crafter-v2-requirements-review.md
 awk '
   FILENAME ~ /loop-crafter-v2-requirements-review\\.md$/ && /^```/ { in_code = !in_code; next }
-  !in_code && /sk-[A-Za-z0-9]|OPENAI_API_KEY=|ANTHROPIC_API_KEY=|GITHUB_PAT_TOKEN=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password[[:space:]]*=/ { print FILENAME ":" FNR ":" $0 }
+  !in_code && /sk-[A-Za-z0-9]|(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_PAT_TOKEN)=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password[[:space:]]*=/ { print FILENAME ":" FNR ":" $0 }
 ' docs/loop-crafter-v2-requirements.md docs/validation/loop-crafter-v2-requirements-review.md
 awk '
   /^## PM Review$/ || /^## Advisor Review$/ { in_review = 1; next }
@@ -428,7 +428,7 @@ awk '
 ' docs/loop-crafter-v2-requirements.md docs/validation/loop-crafter-v2-requirements-review.md
 awk '
   FILENAME ~ /loop-crafter-v2-requirements-review\\.md$/ && /^```/ { in_code = !in_code; next }
-  !in_code && /sk-[A-Za-z0-9]|OPENAI_API_KEY=|ANTHROPIC_API_KEY=|GITHUB_PAT_TOKEN=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password[[:space:]]*=/ { print FILENAME ":" FNR ":" $0 }
+  !in_code && /sk-[A-Za-z0-9]|(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_PAT_TOKEN)=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password[[:space:]]*=/ { print FILENAME ":" FNR ":" $0 }
 ' docs/loop-crafter-v2-requirements.md docs/validation/loop-crafter-v2-requirements-review.md
 awk '
   /^## PM Review$/ || /^## Advisor Review$/ { in_review = 1; next }

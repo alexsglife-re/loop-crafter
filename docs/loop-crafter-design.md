@@ -10,7 +10,7 @@ Version 1 should be a loop design and review skill, not an unattended loop runne
 
 - Skill name: `loop-crafter`
 - Intended repository: `https://github.com/alexsglife-re/loop-crafter`
-- Local project path: `/Users/alex/Documents/Loop-buider`
+- Local project path: `<repo-root>`
 - Project workflow rule: use `multi-agent-working-group` for this project.
 - Git gate rule: normal commit and push may proceed only when PM and Advisor agree, no unresolved P0/P1 remains, required validation is fresh, the scope is clear, and the action is not a high-risk/default-excluded action.
 

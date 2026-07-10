@@ -576,7 +576,7 @@ Expected: no output, except historical discussion if explicitly justified in doc
 Run:
 
 ```bash
-rg -n "sk-[A-Za-z0-9]|OPENAI_API_KEY=|ANTHROPIC_API_KEY=|GITHUB_PAT_TOKEN=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password\s*=" .
+rg -n "sk-[A-Za-z0-9]|(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_PAT_TOKEN)=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password\s*=" .
 ```
 
 Expected: no output.
@@ -833,7 +833,7 @@ Run:
 ```bash
 git diff --name-only --cached > /tmp/loop-crafter-staged-files.txt
 test -s /tmp/loop-crafter-staged-files.txt
-xargs rg -n "sk-[A-Za-z0-9]|OPENAI_API_KEY=|ANTHROPIC_API_KEY=|GITHUB_PAT_TOKEN=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password\s*=" < /tmp/loop-crafter-staged-files.txt || true
+xargs rg -n "sk-[A-Za-z0-9]|(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_PAT_TOKEN)=|BEGIN (RSA|OPENSSH|PRIVATE) KEY|password\s*=" < /tmp/loop-crafter-staged-files.txt || true
 rg -n "T(BD|ODO)|FIXME|fill in|implement later" SKILL.md references docs AGENTS.md || true
 rg -n "not-run" docs/validation/loop-crafter-v1-behavior-validation.md || true
 ```

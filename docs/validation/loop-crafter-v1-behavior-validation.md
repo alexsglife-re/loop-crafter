@@ -12,7 +12,7 @@ This packet originally recorded manual instruction-conformance review before fir
 - Last updated: 2026-07-08
 - Unresolved P0/P1: none recorded
 - Unresolved P2: none recorded
-- Installed skill path: `/Users/alex/.codex/skills/loop-crafter`
+- Installed skill path: `<codex-home>/skills/loop-crafter`
 - Runtime: `codex-cli 0.142.4`
 - Runtime mode: `codex exec --ephemeral --sandbox read-only`
 
