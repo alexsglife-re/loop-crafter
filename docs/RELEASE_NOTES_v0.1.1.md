@@ -17,6 +17,7 @@ This release makes the project understandable and reusable as a local skill sour
 - `agents/openai.yaml` metadata.
 - `README.md` with quickstart and public positioning.
 - `LICENSE`, `CONTRIBUTING.md`, and `SECURITY.md`.
+- `scripts/validate-local.sh` and `.github/workflows/validate.yml` for lightweight validation.
 - `docs/loop-crafter-v2-requirements.md` documenting the accepted V2 requirements package.
 - `docs/PUBLICATION_READINESS.md` documenting public-readiness state and remaining gates.
 - `assets/social-preview.png` for repository/README visual identity.
@@ -24,7 +25,7 @@ This release makes the project understandable and reusable as a local skill sour
 ## What Is Intentionally Not Included
 
 - No package-registry release.
-- No CI workflow.
+- No package build or test suite beyond lightweight documentation validation.
 - No hosted service or deployment.
 - No unattended runner.
 - No background scheduler.
@@ -57,13 +58,14 @@ Before this release:
 - README positioning and social preview asset were reviewed by PM and Advisor gates.
 - Release packet was reviewed by PM and Advisor gates.
 - Local path and common secret-pattern scans passed.
+- GitHub Actions now runs the local validation script.
 - `git diff --check` passed.
 
-No CI workflow exists yet.
+The current CI workflow is intentionally minimal and documentation-focused.
 
 ## Recommended Next Steps
 
-- Add a lightweight local validation script.
+- Expand the lightweight validation script as stable checks are added.
 - Add examples that show full loop design packets for common recurring tasks.
 - Validate a fresh install path from the public repository.
 - Prepare external launch posts only after exact owner authorization for each platform and content.

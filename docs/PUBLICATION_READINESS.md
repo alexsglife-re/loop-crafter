@@ -25,7 +25,7 @@ Source: read-only `gh repo view` and local git checks on 2026-07-10.
 - Homepage URL: empty
 - Topics: `agent-workflows`, `ai-agents`, `automation-safety`, `codex-skill`, `developer-tools`, `workflow-governance`, `agent-loops`, `loop-design`
 - License metadata: MIT
-- CI workflow: none present
+- CI workflow: `.github/workflows/validate.yml`
 
 ## Owner Decisions
 
@@ -57,7 +57,7 @@ Confirmed decisions for Phase 1:
 
 ## Should Improve Before Broader Promotion
 
-- Add a CI or local validation script when the project has stable checks.
+- Expand the local validation script as the project gains stable checks.
 - Add more release examples and validation notes after the first public release.
 - Social preview image now exists at `assets/social-preview.png`; consider setting it in GitHub only after separate owner authorization for that metadata action.
 - Validate the install path with a fresh local copy after publication decisions are final.

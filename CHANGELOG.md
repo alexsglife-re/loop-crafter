@@ -11,6 +11,7 @@ Public baseline and V2 requirements/readiness release.
 - Public README with unattended-ready loop positioning, quickstart, repository map, validation notes, and boundaries.
 - MIT license, contributing guide, and security guidance.
 - GitHub social preview asset at `assets/social-preview.png`.
+- Lightweight local validation script and GitHub Actions workflow.
 - Publication readiness record in `docs/PUBLICATION_READINESS.md`.
 - Draft promotion and metadata notes under `docs/promotion/`.
 - V2 requirements package in `docs/loop-crafter-v2-requirements.md`.
@@ -26,7 +27,7 @@ Public baseline and V2 requirements/readiness release.
 
 - PM and Advisor reviewed the public-readiness and release-preparation work with no unresolved P0/P1 findings before release.
 - Local validation checked required files, README positioning, MIT license text, security/contribution guidance, local-path and secret-pattern scans, and whitespace.
-- No CI workflow exists yet.
+- GitHub Actions runs the local validation script.
 
 ### Boundaries
 
