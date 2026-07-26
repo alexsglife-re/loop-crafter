@@ -14,6 +14,14 @@ Use this checklist before proposing or reviewing a loop.
 
 ## Required Controls
 
+- Goal Freeze: record the owner-authorized objective and gate set in force at startup exactly enough that later findings cannot turn into a larger mission or relax the current run's exit gates.
+- Completion Predicate: define the condition that ends the loop for this run.
+- Phase Boundary: assign one objective category to the phase, such as readiness, metadata, README, release, CI, promotion, implementation, or governance refinement.
+- Authorized Objective Continuation: allow PM, Advisor, Leader, or Reviewer next-step recommendations to continue only inside the frozen objective category and only when needed for the completion predicate.
+- No Self-Governance Expansion: do not let the loop relax or expand its current-run effective governance; a separately authorized governance-refinement loop may edit future governance artifacts only.
+- Next Backlog: capture useful recommendations outside the current target with `item`, `why it matters`, `risk`, `needs owner authorization`, and `recommended priority`.
+- Gate Repair Window: if the owner wants fewer interruptions, record a bounded repair window with Declared File Scope, repair-window opened, repair-window expires, repair-cycle cap, wall-clock cap, validation-only budget handling, repair-window forbidden actions, and fresh-review requirement.
+- Objective Amendments: if the frozen objective changes, record owner authorization, amendment provenance, and the re-frozen objective before continuing.
 - Budget: max iterations, time, cost, context, and retry limits.
 - Stop conditions: failed validation, unresolved P0/P1, missing evidence, owner decision, high-risk action, or context pressure.
 - Human gates: irreversible or high-blast-radius actions.

@@ -44,6 +44,7 @@ Before designing a loop:
 3. Classify risk.
 4. Record authorization state.
 5. Identify secrets, external effects, git exits, deployment, publication, and destructive-action boundaries.
+6. Freeze the owner-authorized objective, objective category, completion predicate, and gate set in force at startup for this run.
 
 ## Workflow
 
@@ -58,6 +59,17 @@ Ask or infer these seven decisions:
 7. State: where progress lives and how stale state is detected.
 
 Then define budget, stop conditions, human gates, and recovery.
+
+Apply anti-expansion controls before accepting any recommended next step:
+
+- Authorized Objective Continuation: PM, Advisor, Leader, or Reviewer next-step recommendations may continue only when they are necessary to satisfy the current completion predicate, stay inside the frozen objective category, and do not require a default-excluded action.
+- Goal Freeze: new findings may refine execution inside the current objective, but they must not automatically become new objectives, new phases, or new deliverables. A loop that edits governance or gate rules must still exit under the gate set in force at startup.
+- Completion Predicate: each loop must define a checkable done condition and stop/report when it is satisfied.
+- Phase Boundary: each phase must use one objective category, such as readiness, metadata, README, release, CI, promotion, implementation, or governance refinement. Crossing categories requires owner confirmation unless that crossing was explicitly included in the frozen objective.
+- No Self-Governance Expansion: a loop may record governance gaps discovered during the run, but it must not relax or expand its current-run effective governance. A separately authorized governance-refinement loop may edit future governance artifacts, but those edits cannot grant authority to the run that produced them. Put out-of-scope gaps into Next Backlog.
+- Next Backlog: useful work outside the frozen target must be recorded as backlog instead of executed.
+- Gate Repair Window: when the owner grants a repair window, the owner authorizes a bounded set of repairs inside the frozen objective rather than each repair line. PM/Advisor/Reviewer-requested P0/P1 repairs may continue without asking again only when they are necessary for the current completion predicate, stay in the frozen objective category, do not relax current-run effective governance, do not add default-excluded actions, touch only declared files or validation coverage for declared files, and are followed by fresh validation and fresh PM/Advisor review before any git exit. Every Gate Repair Window must state Declared File Scope, repair-window opened, repair-window expires, repair-cycle cap, wall-clock cap, validation-only budget handling, repair-window forbidden actions, and fresh-review requirement. Validation-only repairs do not consume a full repair cycle unless the owner says otherwise.
+- Objective Amendments: changing the frozen objective requires explicit owner instruction, recorded amendment provenance, and a new frozen objective for future review. Amendments never retroactively authorize work already performed.
 
 For scaffold or readiness work, convert the seven decisions into concrete output fields:
 
@@ -75,6 +87,9 @@ Return a loop design package with:
 - Project scope
 - Non-goals
 - Trigger condition
+- Frozen objective
+- Objective category
+- Startup gate-set snapshot
 - Roles and responsibilities
 - Coordination points with `multi-agent-working-group`, when multi-agent execution is involved
 - Evidence inputs
@@ -84,7 +99,18 @@ Return a loop design package with:
 - Validation plan
 - State files or memory locations
 - Budget and stop conditions
+- Gate Repair Window, when owner-authorized
+- Declared File Scope, when a Gate Repair Window is owner-authorized
+- repair-window opened
+- repair-window expires
+- repair-cycle cap
+- wall-clock cap
+- validation-only budget handling
+- repair-window forbidden actions
+- fresh-review requirement
 - Failure recovery
+- Completion predicate
+- Next Backlog for out-of-scope recommendations
 - Next owner decision
 
 When the user asks for V2 scaffold assistance, return one or more of:

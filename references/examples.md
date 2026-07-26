@@ -41,6 +41,36 @@ Loop name: `multi-agent-review-loop`
 - Forbidden actions: redefining PM/Advisor rules or self-authorizing git exits.
 - Validation: PM and Advisor agree on goal, scope, risk, next action, verification, and no unresolved P0/P1.
 
+## Anti-Expansion Governance Refinement
+
+Loop name: `anti-expansion-governance-refinement`
+
+- Goal: add loop rules that prevent target expansion and recursive self-governance while preserving same-objective continuation.
+- Objective category: governance refinement.
+- Completion predicate: skill references and local validation require Goal Freeze, Completion Predicate, Phase Boundary, Authorized Objective Continuation, No Self-Governance Expansion, Next Backlog, and Gate Repair Window.
+- Gate Repair Window: owner-authorized for bounded P0/P1 repair inside the frozen governance-refinement objective.
+- Declared File Scope: skill, requirements, validation, and reference files named by the loop package.
+- repair-window opened: 2026-07-26T16:10:41-0700.
+- repair-window expires: 2026-07-26T17:40:41-0700.
+- repair-cycle cap: 3 bounded repair cycles.
+- wall-clock cap: 90 minutes.
+- validation-only budget handling: validation-only repairs do not consume a full repair cycle but remain subject to the wall-clock cap.
+- repair-window forbidden actions: release, tag, installed-skill sync, publication, deployment, default-excluded actions, scope expansion, and current-run governance relaxation.
+- fresh-review requirement: fresh validation and fresh PM/Advisor review before commit, push, or another git exit.
+- Trigger: owner reports that a loop expanded beyond its goal or began governing itself.
+- Evidence: current skill files, safety references, readiness model, validation script, and PM/Advisor review.
+- Roles: Leader implements narrow documentation/script changes; PM and Advisor independently review before commit or push.
+- Allowed actions: update loop-crafter rules and validation checks for the anti-expansion controls.
+- Forbidden actions: release, tag, publication, installed-skill sync, runtime implementation beyond the rule update, or changing multi-agent governance.
+- Validation: local validation passes and PM/Advisor agree no unresolved P0/P1 remains.
+- Stop condition: when the completion predicate is satisfied, report completion and place any release, promotion, or broader governance work in Next Backlog.
+- Next Backlog example:
+  - item: Add richer examples for long-running implementation loops.
+  - why it matters: examples can make the controls easier to apply later.
+  - risk: low if docs-only, medium if it changes governance behavior.
+  - needs owner authorization: yes, if it expands beyond this governance-refinement objective.
+  - recommended priority: medium.
+
 ## V2 Scaffold Proposal
 
 # Loop Scaffold Proposal
@@ -49,6 +79,19 @@ Loop name: `release-note-drafter`
 Project scope: private repository documentation workflow
 Readiness: L1 now, L2 only after owner-approved scaffold writing
 Scaffold target: project-local skill folder or `docs/loops/release-note-drafter.md`
+Frozen objective: draft a reviewable release-note scaffold proposal only
+Objective category: scaffold proposal
+Startup gate-set snapshot: no writes without owner authorization; commit and push remain governed by current project gates
+Completion predicate: proposal includes files, evidence, validation, state, human gates, and Next Backlog without writing files
+Gate Repair Window: none; proposal revisions need owner direction unless the owner grants a bounded repair window
+Declared File Scope: not applicable unless a Gate Repair Window is owner-authorized
+repair-window opened: not applicable unless a Gate Repair Window is owner-authorized
+repair-window expires: not applicable unless a Gate Repair Window is owner-authorized
+repair-cycle cap: not applicable unless a Gate Repair Window is owner-authorized
+wall-clock cap: not applicable unless a Gate Repair Window is owner-authorized
+validation-only budget handling: not applicable unless a Gate Repair Window is owner-authorized
+repair-window forbidden actions: no file writes, commit, push, release, publication, or installed-skill sync without the applicable owner and governance gates
+fresh-review requirement: fresh validation and PM/Advisor review before any write or git exit
 
 Proposed files:
 
@@ -86,6 +129,14 @@ Human gates:
 Required governance:
 
 - `multi-agent-working-group` controls PM/Advisor review and git exits.
+
+Next Backlog:
+
+- item: Turn the proposal into scaffold files.
+- why it matters: files are needed only if the owner wants the loop installed in a project.
+- risk: medium because writing files changes the repository.
+- needs owner authorization: yes.
+- recommended priority: owner-dependent.
 
 Next owner decision:
 

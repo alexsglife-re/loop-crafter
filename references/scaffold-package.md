@@ -12,6 +12,19 @@ Every scaffold proposal should include:
 - Project scope
 - Readiness level
 - Scaffold target
+- Frozen objective
+- Objective category
+- Startup gate-set snapshot
+- Completion predicate
+- Gate Repair Window
+- Declared File Scope
+- repair-window opened
+- repair-window expires
+- repair-cycle cap
+- wall-clock cap
+- validation-only budget handling
+- repair-window forbidden actions
+- fresh-review requirement
 - Proposed files
 - File content previews
 - Evidence allowlist
@@ -21,6 +34,7 @@ Every scaffold proposal should include:
 - Run-log contract
 - Human gates
 - Required governance
+- Next Backlog
 - Next owner decision
 
 ## Proposed Files

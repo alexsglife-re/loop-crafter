@@ -220,6 +220,19 @@ Loop name:
 Project scope:
 Readiness:
 Scaffold target:
+Frozen objective:
+Objective category:
+Startup gate-set snapshot:
+Completion predicate:
+Gate Repair Window:
+Declared File Scope:
+repair-window opened:
+repair-window expires:
+repair-cycle cap:
+wall-clock cap:
+validation-only budget handling:
+repair-window forbidden actions:
+fresh-review requirement:
 Proposed files:
 File content previews:
 Evidence allowlist:
@@ -229,6 +242,7 @@ State contract:
 Run-log contract:
 Human gates:
 Required governance:
+Next Backlog:
 Next owner decision:
 ```
 
@@ -297,6 +311,23 @@ Denylisted paths and domains:
 - `billing/**`
 - `**/migrations/**`
 - production infrastructure files
+
+### Anti-Expansion And Continuation Controls
+
+V2 must prevent a loop from expanding its own target while still allowing efficient same-objective continuation.
+
+Required controls:
+
+- Goal Freeze: freeze the owner-authorized objective, objective category, completion predicate, and gate set in force at startup.
+- Authorized Objective Continuation: PM, Advisor, Leader, or Reviewer next-step recommendations may continue only when they are necessary for the current completion predicate, stay inside the frozen objective category, and do not require a default-excluded action.
+- Completion Predicate: every loop must define a checkable done condition and stop/report when that condition is satisfied.
+- Phase Boundary: each phase must use one objective category, such as readiness, metadata, README, release, CI, promotion, implementation, or governance refinement. Crossing categories requires owner confirmation unless the crossing was explicitly included in the frozen objective.
+- No Self-Governance Expansion: a loop may record governance gaps discovered during a run, but it must not relax or expand its current-run effective governance. A separately authorized governance-refinement loop may edit future governance artifacts, but those edits cannot grant authority to the run that produced them, and the run must still exit under the gate set in force at startup.
+- Next Backlog: recommendations outside the current target must be recorded with `item`, `why it matters`, `risk`, `needs owner authorization`, and `recommended priority` instead of being executed automatically.
+- Gate Repair Window: owner authorization should cover a bounded, verifiable repair window inside the frozen objective instead of each individual repair line. Repairs may continue only when they are necessary for the current completion predicate, remain inside the frozen objective category and Declared File Scope, do not relax current-run effective governance, do not add default-excluded actions, and are followed by fresh validation plus fresh PM/Advisor review before any git exit. Every Gate Repair Window must state Declared File Scope, repair-window opened, repair-window expires, repair-cycle cap, wall-clock cap, validation-only budget handling, repair-window forbidden actions, and fresh-review requirement.
+- Objective Amendments: changing a frozen objective requires explicit owner instruction, recorded amendment provenance, and a re-frozen objective. Amendments do not retroactively authorize work already performed.
+
+This control does not mean a PM, Advisor, or Leader recommendation is useless. It means recommendations can drive continued work only inside the already authorized objective. New objective categories, default-excluded actions, and governance-model changes require a separate owner-authorized loop or explicit owner confirmation.
 
 ## Implementation Targets
 

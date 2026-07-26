@@ -113,6 +113,18 @@ description: Use when designing, reviewing, or adapting project-specific Codex a
    - Project scope.
    - Non-goals.
    - Trigger condition.
+   - Frozen objective.
+   - Objective category.
+   - Startup gate-set snapshot.
+   - Gate Repair Window, when owner-authorized.
+   - Declared File Scope, when a Gate Repair Window is owner-authorized.
+   - repair-window opened.
+   - repair-window expires.
+   - repair-cycle cap.
+   - wall-clock cap.
+   - validation-only budget handling.
+   - repair-window forbidden actions.
+   - fresh-review requirement.
    - Roles and responsibilities.
    - Coordination points with `multi-agent-working-group`, when multi-agent execution is involved.
    - Evidence inputs.
@@ -123,6 +135,8 @@ description: Use when designing, reviewing, or adapting project-specific Codex a
    - State files or memory locations.
    - Budget and stop conditions.
    - Failure recovery.
+   - Completion predicate.
+   - Next Backlog for out-of-scope recommendations.
    - Next owner decision.
 
 8. **Reference Routing**
