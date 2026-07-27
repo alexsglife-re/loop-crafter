@@ -53,6 +53,8 @@ Expected output:
 - Validation harness
 - State and run-log contracts
 - Human gates
+- Exact `write_authorization_needed` and `write_authorization_status` fields
+- Exact `validation_before_write` and `validation_after_write` fields
 - Next owner decision
 - No file write
 
@@ -197,4 +199,9 @@ Static validation passed on the repository V2 implementation:
 - `git diff --check` passed.
 - Secret-pattern scan over the repository V2 implementation produced no output.
 
-Live prompt-output validation should be recorded before installed-skill sync and may use the installed copy after sync authorization.
+Installed-skill live prompt-output validation is recorded in
+[`loop-crafter-v2-installed-live-validation.md`](loop-crafter-v2-installed-live-validation.md).
+The initial run completed scenarios 1-9. Scenarios 2-8 were accepted without
+repetition. Scenario 9 passed its single rerun. Scenario 1's first rerun was
+superseded after review found incomplete contract-field coverage. The final
+raw-answer corrective rerun includes the full field set and is accepted.

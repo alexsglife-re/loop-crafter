@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="#quickstart"><img src="https://img.shields.io/badge/Quickstart-local_skill-blue?style=for-the-badge" alt="Quickstart"></a>
-  <a href="docs/loop-crafter-v2-requirements.md"><img src="https://img.shields.io/badge/V2_reqs-v0.1.1-green?style=for-the-badge" alt="V2 requirements"></a>
+  <a href="docs/loop-crafter-v2-requirements.md"><img src="https://img.shields.io/badge/V2-v0.1.2-green?style=for-the-badge" alt="V2 release"></a>
   <a href="docs/PUBLICATION_READINESS.md"><img src="https://img.shields.io/badge/Readiness-public_baseline-black?style=for-the-badge" alt="Publication readiness"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License"></a>
 </p>
@@ -45,11 +45,12 @@ Use it when you want an agent to move efficiently through repeatable work withou
 Current status: early public baseline.
 
 - V1 is design/review-first.
-- V2 requirements are documented as `v0.1.1`.
-- V2 adds scaffold proposals, readiness reports, and validation harness designs.
+- V2 requirements were documented as `v0.1.1`.
+- V2 scaffold proposals, readiness reports, validation harness designs, and
+  bounded scaffold write packets are implemented and live-validated in `v0.1.2`.
 - V2 is aimed at unattended-ready loop design, while execution, file writes, and external effects remain gated by owner/project rules.
 
-Current public release: `v0.1.1`. There is no package-registry entry yet.
+Current public release: `v0.1.2`. There is no package-registry entry.
 
 ## Quickstart
 

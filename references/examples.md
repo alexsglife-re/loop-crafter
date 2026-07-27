@@ -77,7 +77,7 @@ Loop name: `anti-expansion-governance-refinement`
 
 Loop name: `release-note-drafter`
 Project scope: private repository documentation workflow
-Readiness: L1 now, L2 only after owner-approved scaffold writing
+Readiness level: L1 now, L2 only after owner-approved scaffold writing
 Scaffold target: project-local skill folder or `docs/loops/release-note-drafter.md`
 Frozen objective: draft a reviewable release-note scaffold proposal only
 Objective category: scaffold proposal
@@ -129,6 +129,21 @@ Human gates:
 Required governance:
 
 - `multi-agent-working-group` controls PM/Advisor review and git exits.
+
+write_authorization_needed: yes
+write_authorization_status: not requested
+
+validation_before_write:
+
+- Confirm the exact proposed files and current dirty scope.
+- Check proposed paths against denylisted and default-excluded domains.
+- Run secret and copied-content checks and obtain required fresh review.
+
+validation_after_write:
+
+- Confirm only owner-approved files changed.
+- Run the declared validation harness and secret/copy-content checks.
+- Obtain fresh PM/Advisor review before any separately gated git exit.
 
 Next Backlog:
 

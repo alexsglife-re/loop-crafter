@@ -2,9 +2,13 @@
 
 ## Status
 
-Current readiness: public repository baseline prepared.
+Current readiness: `v0.1.2` release packet prepared and locally validated.
 
-This document records the first open-source readiness pass for `loop-crafter`. Repository visibility and the initial GitHub description/topics have now been applied by owner-authorized actions. It does not authorize tags, releases, external posts, scheduling, deployment, or any other public action.
+This document records the current release-preparation state for `loop-crafter`.
+Repository visibility and the initial GitHub description/topics were applied by
+earlier owner-authorized actions. The owner has authorized the `v0.1.2` tag and
+GitHub Release, but neither action is claimed as completed here. External posts,
+scheduling, deployment, and other public actions remain separately gated.
 
 ## Project Classification
 
@@ -12,7 +16,9 @@ This document records the first open-source readiness pass for `loop-crafter`. R
 - Maturity: early documented project.
 - Primary audience: developers and maintainers using Codex for recurring or long-running workflows.
 - Adoption path: clone the repository and copy the skill files into a local Codex skills directory.
-- Current version story: `v0.1.1` is the first public baseline and V2 requirements/readiness release.
+- Current version story: `v0.1.1` remains the first public baseline and V2
+  requirements release; `v0.1.2` delivers the implemented and installed-live-
+  validated V2 behavior.
 
 ## Verified Baseline
 
@@ -45,12 +51,18 @@ Confirmed decisions for Phase 1:
 - Applied owner-authorized GitHub description and topics from the metadata draft.
 - Added draft-only channel copy for later owner review.
 - Replaced concrete local machine paths in existing validation and transcript evidence with placeholders such as `<repo-root>` and `<codex-home>`.
+- Completed the separately owner-authorized installed-skill sync and verified
+  all nine runtime files byte-identical to repository sources.
+- Added installed live validation for scenarios 1-9; only scenarios 1 and 9
+  were repeated for corrective validation.
+- Prepared the `v0.1.2` changelog and release notes.
 
 ## Remaining Gates Before Promotion
 
 - Repository visibility is now public by owner action.
 - Initial GitHub description and topics have been applied by owner-authorized action.
-- `v0.1.1` tag and GitHub Release are owner-authorized for this release gate.
+- `v0.1.2` tag and GitHub Release are owner-authorized for the next release
+  gate but are not yet recorded as created.
 - Owner must separately authorize any external post or schedule.
 - PM and Advisor must review the final public-facing diff.
 - Fresh validation must pass.
@@ -69,9 +81,9 @@ Public copy should not claim:
 - ungated unattended execution
 - production support
 - package-registry availability
-- CI coverage
+- comprehensive CI coverage beyond the lightweight validation workflow
 - broad runtime adapter support
-- release availability beyond the owner-authorized `v0.1.1` public baseline release
+- release availability beyond the documented `v0.1.2` release surface
 - external adoption, stars, benchmarks, or endorsements
 
 ## Authorization State
@@ -82,12 +94,14 @@ Allowed in this phase:
 - local draft metadata files
 - local draft promotion files
 - normal commit and push after PM/Advisor gate and validation
+- the owner-authorized `v0.1.2` tag and GitHub Release after all required
+  release gates pass
 
 Not authorized in this phase:
 
 - additional repository visibility changes
 - additional GitHub metadata edits
-- tag or release creation beyond the owner-authorized `v0.1.1` release gate
+- tag or release creation other than the owner-authorized `v0.1.2` release gate
 - external posting or scheduling
 - deployment
 - destructive changes

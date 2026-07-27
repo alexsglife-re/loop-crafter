@@ -32,6 +32,12 @@ Reference mapping:
 - Completed V1 baseline version: `v0.1.0`.
 - Completed V2 requirements version: `v0.1.1`.
 - `v0.1.1` means the V2 requirements package has been reviewed, revised, validated, and accepted. It does not mean V2 implementation is complete.
+- Completed V2 implementation version: `v0.1.2`.
+- `v0.1.2` means the assisted scaffold, readiness, validation-harness, bounded
+  write-packet, and Gate Repair Window behavior is implemented and
+  installed-live-validated.
+- The separately owner-authorized installed-skill sync for `v0.1.2` completed
+  with all nine runtime files verified byte-identical.
 - Tags or release publication remain default-excluded and require explicit owner authorization naming the tag or release action.
 
 ## Goals
@@ -218,7 +224,7 @@ multi-agent-working-group controls execution governance; `loop-crafter` only des
 
 Loop name:
 Project scope:
-Readiness:
+Readiness level:
 Scaffold target:
 Frozen objective:
 Objective category:
@@ -242,6 +248,10 @@ State contract:
 Run-log contract:
 Human gates:
 Required governance:
+write_authorization_needed:
+write_authorization_status:
+validation_before_write:
+validation_after_write:
 Next Backlog:
 Next owner decision:
 ```

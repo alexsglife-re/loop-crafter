@@ -34,11 +34,41 @@ require_section_match() {
   local start="$2"
   local end="$3"
   local pattern="$4"
-  awk -v start="$start" -v end="$end" '
-    $0 == start { in_section = 1 }
-    in_section { print }
-    in_section && $0 == end { exit }
-  ' "$file" | rg -q "$pattern" || fail "missing pattern '$pattern' in section '$start' of $file"
+  local section
+  section="$(
+    awk -v start="$start" -v end="$end" '
+      $0 == start { in_section = 1; saw_start = 1 }
+      in_section && $0 == end { saw_end = 1; exit }
+      in_section { print }
+      END {
+        if (!saw_start || !saw_end) {
+          exit 2
+        }
+      }
+    ' "$file"
+  )" || fail "missing section boundary '$start' -> '$end' in $file"
+  printf '%s\n' "$section" | rg -q "$pattern" ||
+    fail "missing pattern '$pattern' in section '$start' of $file"
+}
+
+require_after_match() {
+  local file="$1"
+  local start="$2"
+  local pattern="$3"
+  local tail
+  tail="$(
+    awk -v start="$start" '
+      $0 == start { in_tail = 1; saw_start = 1; next }
+      in_tail { print }
+      END {
+        if (!saw_start) {
+          exit 2
+        }
+      }
+    ' "$file"
+  )" || fail "missing tail boundary '$start' in $file"
+  printf '%s\n' "$tail" | rg -q "$pattern" ||
+    fail "missing pattern '$pattern' after '$start' in $file"
 }
 
 require_file AGENTS.md
@@ -50,22 +80,28 @@ require_file CONTRIBUTING.md
 require_file SECURITY.md
 require_file CHANGELOG.md
 require_file docs/RELEASE_NOTES_v0.1.1.md
+require_file docs/RELEASE_NOTES_v0.1.2.md
 require_file docs/PUBLICATION_READINESS.md
 require_file docs/anti-expansion-governance-refinement-loop.md
 require_file docs/loop-crafter-v2-requirements.md
 require_file docs/validation/loop-crafter-v2-behavior-validation.md
+require_file docs/validation/loop-crafter-v2-installed-live-validation.md
 require_file assets/social-preview.png
 
 require_match 'loop-crafter' SKILL.md README.md agents/openai.yaml
 require_match 'Design unattended-ready agent loops' README.md
 require_match 'owner-authorized autonomous runs' README.md
 require_match 'execute unattended runs' README.md
-require_match 'Current public release: `v0.1.1`' README.md
+require_match 'Current public release: `v0.1.2`' README.md
 require_match 'MIT License' LICENSE
 require_match 'secret|credential|token|security' SECURITY.md CONTRIBUTING.md
-require_match 'v0.1.1' CHANGELOG.md docs/RELEASE_NOTES_v0.1.1.md docs/PUBLICATION_READINESS.md
+require_match_all 'v0.1.1' CHANGELOG.md docs/RELEASE_NOTES_v0.1.1.md docs/PUBLICATION_READINESS.md docs/loop-crafter-v2-requirements.md
+require_match_all 'v0.1.2' README.md CHANGELOG.md docs/RELEASE_NOTES_v0.1.2.md docs/PUBLICATION_READINESS.md docs/loop-crafter-v2-requirements.md
 require_match 'No package-registry release' docs/RELEASE_NOTES_v0.1.1.md
 require_match 'No unattended runner' docs/RELEASE_NOTES_v0.1.1.md
+require_match 'No package-registry release' docs/RELEASE_NOTES_v0.1.2.md
+require_match 'No unattended runner' docs/RELEASE_NOTES_v0.1.2.md
+require_match 'No automatic commit, push, tag, release, deployment, or publication' docs/RELEASE_NOTES_v0.1.2.md
 require_match 'ungated unattended execution' docs/PUBLICATION_READINESS.md
 require_match 'multi-agent-working-group' SKILL.md README.md AGENTS.md
 require_match_all 'Goal Freeze' SKILL.md references/loop-design-checklist.md references/readiness-model.md docs/loop-crafter-v2-requirements.md
@@ -96,6 +132,83 @@ require_match_all 'Validation-coverage repairs must be additive or coverage-pres
 require_match_all 'Next Backlog' SKILL.md docs/loop-crafter-design.md docs/loop-crafter-v2-requirements.md references/scaffold-package.md references/examples.md
 require_match_all 'Frozen objective' references/examples.md
 require_match_all 'Startup gate-set snapshot' references/examples.md
+scaffold_fields=(
+  'Loop name'
+  'Project scope'
+  'Readiness level'
+  'Scaffold target'
+  'Proposed files'
+  'File content previews'
+  'Evidence allowlist'
+  'Forbidden paths( and actions|/actions)'
+  'Validation harness'
+  'State contract'
+  'Run-log contract'
+  'Human gates'
+  'Required governance'
+  'Next owner decision'
+)
+for field in "${scaffold_fields[@]}"; do
+  require_section_match docs/loop-crafter-v2-requirements.md \
+    '### Output A: Scaffold Proposal' '### Output B: Readiness Report' "$field"
+  require_section_match references/examples.md \
+    '## V2 Scaffold Proposal' '## V2 Readiness Report' "$field"
+  require_section_match references/scaffold-package.md \
+    '## Required Sections' '## Proposed Files' "$field"
+done
+
+write_fields=(
+  'write_authorization_needed'
+  'write_authorization_status'
+  'validation_before_write'
+  'validation_after_write'
+)
+for field in "${write_fields[@]}"; do
+  require_section_match docs/loop-crafter-v2-requirements.md \
+    '### Output A: Scaffold Proposal' '### Output B: Readiness Report' "$field"
+  require_section_match references/examples.md \
+    '## V2 Scaffold Proposal' '## V2 Readiness Report' "$field"
+  require_match_all "$field" references/scaffold-package.md
+done
+
+accepted_scenario_one=docs/validation/transcripts/live-v2-installed-20260726-rerun-s1-s9/scenario-01-output-v2.md
+accepted_scenario_one_fields=(
+  'Loop name:'
+  'Project scope:'
+  'Readiness level:'
+  'Scaffold target:'
+  'Frozen objective:'
+  'Objective category:'
+  'Startup gate-set snapshot:'
+  'Completion predicate:'
+  'Gate Repair Window:'
+  'Declared File Scope:'
+  'repair-window opened:'
+  'repair-window expires:'
+  'repair-cycle cap:'
+  'wall-clock cap:'
+  'validation-only budget handling:'
+  'repair-window forbidden actions:'
+  'fresh-review requirement:'
+  'Proposed files:'
+  'File content previews:'
+  'Evidence allowlist:'
+  'Forbidden paths/actions:'
+  'Validation harness:'
+  'State contract:'
+  'Run-log contract:'
+  'Human gates:'
+  'Required governance:'
+  'write_authorization_needed:'
+  'write_authorization_status:'
+  'validation_before_write:'
+  'validation_after_write:'
+  'Next Backlog:'
+  'Next owner decision:'
+)
+for field in "${accepted_scenario_one_fields[@]}"; do
+  require_after_match "$accepted_scenario_one" '## Output' "^${field}"
+done
 require_match_all 'current-run effective governance' SKILL.md references/loop-design-checklist.md references/safety-and-gates.md docs/loop-crafter-v2-requirements.md docs/anti-expansion-governance-refinement-loop.md
 require_match_all 'future governance artifacts' SKILL.md references/loop-design-checklist.md references/safety-and-gates.md docs/loop-crafter-v2-requirements.md docs/anti-expansion-governance-refinement-loop.md docs/validation/loop-crafter-v2-behavior-validation.md
 require_match_all 'Startup Gate-Set Snapshot' docs/anti-expansion-governance-refinement-loop.md
@@ -122,6 +235,102 @@ require_section_match references/examples.md '## Anti-Expansion Governance Refin
 require_section_match references/examples.md '## Anti-Expansion Governance Refinement' '## V2 Scaffold Proposal' 'fresh-review requirement'
 require_match_all 'repair-window opened:' docs/anti-expansion-governance-refinement-loop.md
 require_match_all 'repair-window expires:' docs/anti-expansion-governance-refinement-loop.md
+require_match_all 'Scenarios 1-9 coverage: complete' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'Scenarios 1 and 9 were the only scenarios repeated after the initial run' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'Scenario 1 required two corrective reruns' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'Skill target: installed `loop-crafter`' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'Provenance-backed accepted reruns: OpenAI `codex-auto-review`' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'No extra live repeats were performed' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'No commit, push, tag, release, or installed-skill sync was performed' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'does not claim a public `v0.1.2` release' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'exact per-scenario runtime session IDs were' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'task/thread ID and exact per-scenario' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'are therefore not claimed here' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'prompt text,' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'post-processing details were not preserved' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'cannot now be independently' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'normalized only by removing trailing whitespace' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'Repository `references/examples.md` was later synchronized byte-identically' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'All nine installed runtime files matched after that sync' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'Release Target Fingerprint Recipe' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all 'standard `shasum -a 256` lines' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all '`README.md`' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all '`CHANGELOG.md`' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all '`docs/PUBLICATION_READINESS.md`' docs/validation/loop-crafter-v2-installed-live-validation.md
+require_match_all '`docs/RELEASE_NOTES_v0.1.2.md`' docs/validation/loop-crafter-v2-installed-live-validation.md
+
+command -v python3 >/dev/null 2>&1 ||
+  fail 'python3 is required for evidence-manifest verification'
+python3 - <<'PY'
+from hashlib import sha256
+from pathlib import Path
+import re
+
+manifest = Path("docs/validation/loop-crafter-v2-installed-live-validation.md")
+base = manifest.parent
+expected_paths = {
+    *{
+        f"transcripts/live-v2-installed-20260726/scenario-{number:02d}-output.md"
+        for number in range(1, 10)
+    },
+    "transcripts/live-v2-installed-20260726-rerun-s1-s9/scenario-01-output.md",
+    "transcripts/live-v2-installed-20260726-rerun-s1-s9/scenario-01-output-v2.md",
+    "transcripts/live-v2-installed-20260726-rerun-s1-s9/scenario-09-output.md",
+}
+rows = re.findall(
+    r"^\| `([^`]+)` \| `([0-9a-f]{64})` \|$",
+    manifest.read_text(encoding="utf-8"),
+    re.MULTILINE,
+)
+if not rows:
+    raise SystemExit(f"{manifest}: no evidence hash rows found")
+paths = [relative for relative, _ in rows]
+if len(paths) != len(set(paths)):
+    raise SystemExit(f"{manifest}: duplicate evidence paths")
+if set(paths) != expected_paths:
+    missing = sorted(expected_paths - set(paths))
+    unexpected = sorted(set(paths) - expected_paths)
+    raise SystemExit(
+        f"{manifest}: evidence path set mismatch; "
+        f"missing={missing}, unexpected={unexpected}"
+    )
+actual_paths = {
+    str(path.relative_to(base))
+    for directory in (
+        base / "transcripts/live-v2-installed-20260726",
+        base / "transcripts/live-v2-installed-20260726-rerun-s1-s9",
+    )
+    for path in directory.glob("*.md")
+}
+if actual_paths != expected_paths:
+    missing = sorted(expected_paths - actual_paths)
+    unexpected = sorted(actual_paths - expected_paths)
+    raise SystemExit(
+        f"{manifest}: transcript directory set mismatch; "
+        f"missing={missing}, unexpected={unexpected}"
+    )
+accepted = base / (
+    "transcripts/live-v2-installed-20260726-rerun-s1-s9/"
+    "scenario-01-output-v2.md"
+)
+accepted_text = accepted.read_text(encoding="utf-8")
+prompt_headings = list(re.finditer(r"^## Prompt$", accepted_text, re.MULTILINE))
+output_headings = list(re.finditer(r"^## Output$", accepted_text, re.MULTILINE))
+if len(prompt_headings) != 1 or len(output_headings) != 1:
+    raise SystemExit(f"{accepted}: expected exactly one Prompt and one Output heading")
+if prompt_headings[0].start() > output_headings[0].start():
+    raise SystemExit(f"{accepted}: Prompt must precede Output")
+for relative, expected in rows:
+    evidence = base / relative
+    if not evidence.is_file():
+        raise SystemExit(f"{manifest}: missing evidence file: {relative}")
+    actual = sha256(evidence.read_bytes()).hexdigest()
+    if actual != expected:
+        raise SystemExit(
+            f"{manifest}: SHA-256 mismatch for {relative}: "
+            f"expected {expected}, got {actual}"
+        )
+PY
 
 if command -v file >/dev/null 2>&1; then
   file assets/social-preview.png | rg -q 'PNG image data' || fail 'social preview is not a PNG'
@@ -161,7 +370,7 @@ else
   (( status <= 1 )) || fail 'local path or secret-like scan failed'
 fi
 
-placeholder_scan_paths=(README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md SKILL.md agents references docs/PUBLICATION_READINESS.md docs/RELEASE_NOTES_v0.1.1.md)
+placeholder_scan_paths=(README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md SKILL.md agents references docs/PUBLICATION_READINESS.md docs/RELEASE_NOTES_v0.1.1.md docs/RELEASE_NOTES_v0.1.2.md)
 if rg -n 'TODO|FIXME|TBD|fill in|coming soon' \
   "${placeholder_scan_paths[@]}"; then
   fail 'placeholder text found'
@@ -173,7 +382,6 @@ fi
 if command -v python3 >/dev/null 2>&1; then
   python3 - <<'PY'
 from pathlib import Path
-from datetime import datetime, timedelta
 
 path = Path("agents/openai.yaml")
 text = path.read_text(encoding="utf-8")
