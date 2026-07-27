@@ -2,13 +2,14 @@
 
 ## Status
 
-Current readiness: `v0.1.2` release packet prepared and locally validated.
+Current readiness: `v0.1.2` publicly released and validated.
 
-This document records the current release-preparation state for `loop-crafter`.
+This document records the current release state for `loop-crafter`.
 Repository visibility and the initial GitHub description/topics were applied by
-earlier owner-authorized actions. The owner has authorized the `v0.1.2` tag and
-GitHub Release, but neither action is claimed as completed here. External posts,
-scheduling, deployment, and other public actions remain separately gated.
+earlier owner-authorized actions. The owner-authorized annotated `v0.1.2` tag
+and GitHub Release were published from commit
+`0f469db30d088cbb3abab33a894bb5124d153e58`. External posts, scheduling,
+deployment, and other public actions remain separately gated.
 
 ## Project Classification
 
@@ -22,7 +23,8 @@ scheduling, deployment, and other public actions remain separately gated.
 
 ## Verified Baseline
 
-Source: read-only `gh repo view` and local git checks on 2026-07-10.
+Source: read-only GitHub and local git checks after the `v0.1.2` release on
+2026-07-26 PDT.
 
 - Repository: `alexsglife-re/loop-crafter`
 - Default branch: `master`
@@ -32,6 +34,11 @@ Source: read-only `gh repo view` and local git checks on 2026-07-10.
 - Topics: `agent-workflows`, `ai-agents`, `automation-safety`, `codex-skill`, `developer-tools`, `workflow-governance`, `agent-loops`, `loop-design`
 - License metadata: MIT
 - CI workflow: `.github/workflows/validate.yml`
+- Latest release: `v0.1.2`
+- Release URL:
+  `https://github.com/alexsglife-re/loop-crafter/releases/tag/v0.1.2`
+- Release commit: `0f469db30d088cbb3abab33a894bb5124d153e58`
+- Branch and tag validation: successful on the exact release commit
 
 ## Owner Decisions
 
@@ -55,24 +62,29 @@ Confirmed decisions for Phase 1:
   all nine runtime files byte-identical to repository sources.
 - Added installed live validation for scenarios 1-9; only scenarios 1 and 9
   were repeated for corrective validation.
-- Prepared the `v0.1.2` changelog and release notes.
+- Published the `v0.1.2` changelog, release notes, annotated tag, and GitHub
+  Release.
+- Verified that the GitHub Release is non-draft, non-prerelease, and Latest,
+  with no uploaded assets.
+- Verified that the release body is byte-identical to the committed
+  `docs/RELEASE_NOTES_v0.1.2.md`.
+- Verified successful `Validate` runs for both the `master` push and the
+  `v0.1.2` tag on the exact release commit.
 
-## Remaining Gates Before Promotion
+## Remaining Gates Before External Promotion
 
 - Repository visibility is now public by owner action.
 - Initial GitHub description and topics have been applied by owner-authorized action.
-- `v0.1.2` tag and GitHub Release are owner-authorized for the next release
-  gate but are not yet recorded as created.
+- The annotated `v0.1.2` tag and GitHub Release are published.
+- PM and Advisor completed post-release review with no unresolved P0/P1.
 - Owner must separately authorize any external post or schedule.
-- PM and Advisor must review the final public-facing diff.
-- Fresh validation must pass.
 
 ## Should Improve Before Broader Promotion
 
 - Expand the local validation script as the project gains stable checks.
 - Add more release examples and validation notes after the first public release.
 - Social preview image now exists at `assets/social-preview.png`; consider setting it in GitHub only after separate owner authorization for that metadata action.
-- Validate the install path with a fresh local copy after publication decisions are final.
+- Keep installed-skill parity checks in future release validation.
 
 ## Claim Safety
 
@@ -94,14 +106,12 @@ Allowed in this phase:
 - local draft metadata files
 - local draft promotion files
 - normal commit and push after PM/Advisor gate and validation
-- the owner-authorized `v0.1.2` tag and GitHub Release after all required
-  release gates pass
 
 Not authorized in this phase:
 
 - additional repository visibility changes
 - additional GitHub metadata edits
-- tag or release creation other than the owner-authorized `v0.1.2` release gate
+- additional tag or release creation
 - external posting or scheduling
 - deployment
 - destructive changes
